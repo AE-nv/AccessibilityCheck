@@ -28,6 +28,7 @@ _global.HTMLCS = new function()
     var _currentSniff = null;
 
     var _messages     = [];
+    var _messageCalculations= [];
     var _msgOverrides = {};
 
     /*
@@ -250,6 +251,15 @@ _global.HTMLCS = new function()
     };
 
     /**
+     * Adds a asynchronous message.
+     *
+     * @param {Promise}  calculationPromise    A promise which will add an extra message if necessary
+     */
+    this.addAsyncMessage = function(calculationPromise) {
+        _messageCalculations.push(calculationPromise);
+    };
+
+    /**
      * Returns all the messages for the last run.
      *
      * Return a copy of the array so the class variable doesn't get modified by
@@ -260,6 +270,13 @@ _global.HTMLCS = new function()
     this.getMessages = function() {
         return _messages.concat([]);
     };
+
+    function reflect(promise) {
+        return promise.then(
+            function(v) { return {v:v, status: "OK"} },
+            function(e) { return {e:e, status: "ERROR"} }
+        );
+    }
 
     /**
      * Runs the sniffs in the loaded standard for the specified element.
@@ -312,7 +329,15 @@ _global.HTMLCS = new function()
             _currentSniff.testSemanticPresentationRole(element);
         });
 
-        if (callback instanceof Function === true) {
+        if (callback instanceof Function !== true) {
+            return;
+        }
+        if(_messageCalculations.length > 0) {
+            Promise.all(_messageCalculations.map(reflect))
+                .then(function() {
+                    callback.call(this);
+                });
+        } else {
             callback.call(this);
         }
     };
@@ -422,37 +447,37 @@ _global.HTMLCS = new function()
 
         function isDevOnlySniff(code) {
             var devOnlySniffs = [
-              "1_3_4",
-              "1_3_5",
-              "1_3_6",
-              "1_4_2",
-              "1_4_4",
-              "1_4_8",
-              "1_4_10",
-              "1_4_12",
-              "2_1_1",
-              "2_1_2",
-              "2_1_3",
-              "2_1_4",
-              "2_2_1",
-              "2_2_4",
-              "2_2_5",
-              "2_2_6",
-              "2_3_3",
-              "2_4_3",
-              "2_4_5",
-              "2_4_7",
-              "2_5_1",
-              "2_5_2",
-              "2_5_4",
-              "2_5_6",
-              "3_2_1",
-              "3_2_2",
-              "3_3_1",
-              "3_3_2",
-              "3_3_3",
-              "3_3_4",
-              "3_3_6"
+                "1_3_4",
+                "1_3_5",
+                "1_3_6",
+                "1_4_2",
+                "1_4_4",
+                "1_4_8",
+                "1_4_10",
+                "1_4_12",
+                "2_1_1",
+                "2_1_2",
+                "2_1_3",
+                "2_1_4",
+                "2_2_1",
+                "2_2_4",
+                "2_2_5",
+                "2_2_6",
+                "2_3_3",
+                "2_4_3",
+                "2_4_5",
+                "2_4_7",
+                "2_5_1",
+                "2_5_2",
+                "2_5_4",
+                "2_5_6",
+                "3_2_1",
+                "3_2_2",
+                "3_3_1",
+                "3_3_2",
+                "3_3_3",
+                "3_3_4",
+                "3_3_6"
             ];
             for (var i = 0; i < devOnlySniffs.length; i++) {
               var x = devOnlySniffs[i];

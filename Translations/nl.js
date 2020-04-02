@@ -56,6 +56,7 @@ _global.translation['nl'] = {
     ,"1_1_1_H35.3" : 'Applet elementen moeten een tekstalternatief bevatten in de body van het element, voor browsers die het applet element niet ondersteunen.'
     ,"1_1_1_H35.2" : 'Applet elementen moeten een alt attribuut  bevatten, om een tekst-alternatief te bieden in browsers die het element ondersteunen maar de applet niet kunnen laden.'
     ,"1_1_1_G94,G92.Applet" : 'Controleer of een kort (of indien toepasselijk, lang) tekstalternatief beschikbaar is voor niet-tekstuele inhoud en dat die hetzelfde doel dient en dezelfde informatie toont.'
+    ,"1_1_1_AltText": "De volgende termen werden niet teruggevonden in de alt text: {0}"
 
 
     //1_2_1.js
@@ -212,6 +213,7 @@ _global.translation['nl'] = {
 
     //1_4_5.js
     ,"1_4_5_G140,C22,C30.AALevel" : 'Indien de gebruikte technologie de visuele presentatie kan weergeven, controleer dan dat tekst gebruikt werd om informatie weer te geven, in plaats van afbeeldingen van tekst, behalve als de afbeelding van tekst essentieel is voor de weer te geven informatie, of visueel kan aangepast worden aan de noden van de gebruiker.'
+    ,"1_4_5_text" : 'Gebruik indien mogelijk de tekst in plaats van de afbeelding: {0}'
 
 
     //1_4_6.js
@@ -392,6 +394,7 @@ _global.translation['nl'] = {
     ,"3_1_1_H57.2" : 'Het html element zou een lang of xml:lang attribuut moeten bevatten dat de taal van het document beschrijft.'
     ,"3_1_1_H57.3.Lang" : 'De taal gespecifieerd in het lang attribuut van het document lijkt niet correct geformuleerd.'
     ,"3_1_1_H57.3.XmlLang" : 'De taal gespecifieerd in het xml:lang attribuut van het document lijkt niet correct geformuleerd.'
+    ,"3_1_1_H57.RecognizedLang" : 'De herkende taal ({0}) op deze pagina stemt niet overeen met het lang attribuut ({1}) van het document.'
 
 
     //3_1_2.js

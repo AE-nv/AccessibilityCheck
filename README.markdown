@@ -1,4 +1,4 @@
-# BOSA Accessibility Check README
+# PoC AE - BOSA Accessibility Check README
 
 ## What is BOSA Accessibility Check?
 
@@ -6,17 +6,14 @@ BOSA Accessibility Check is a JavaScript application that checks a HTML document
 or source code, and detects violations of a defined presentation or accessibility
 standard, such as Section508 or WCAG2.1.
 
-This is a fork of [HTML_CodeSniffer](https://github.com/squizlabs/HTML_CodeSniffer), which is released under a BSD-style license.
+This is a fork of [BOSA Accessibility check](https://github.com/openfed/AccessibilityCheck), which is released under a BSD-style license.
 
-### Standards included
+FOD BOSA wants to use AI for several checks. In this PoC, AE showed it is possible. In order to prove it, AE implemented the following checks:
+1. Check whether the alt text describes what is visible on the image (backend model)
+2. Check whether the language described in th lang attribute is used on the page (backend model)
+3. Use Tessaract OCR to get the text used in an image
 
-By default, BOSA Accessiblity Check comes with standards that cover the three conformance
-levels of the <abbr title="World Wide Web Consortium">W3C</abbr> [Web Content Accessibility Guidelines (WCAG) 2.1](https://www.w3.org/TR/WCAG21/),
-and the <abbr title="United States of America">U.S.</abbr> [Section 508](http://section508.gov/index.cfm?fuseAction=stdsdoc) legislation.
-It also provides tools to write your own standards, which can be useful in situations
-where you wish to enforce consistency across a web site.
-
-### Using BOSA Accessibility Check
+### Using BOSA Accessibility Check - AE PoC
 
 BOSA Accessiblity Check can be called in multiple ways:
 
@@ -26,12 +23,51 @@ BOSA Accessiblity Check can be called in multiple ways:
   letting you browse through messages emitted from one of the defined standards.
   Where possible, the auditor also points you to the HTML element causing the problem.
 - It can also be run on the command line with the assistance of a headless browser app.
-- Using as a Node.js module, installed with npm: `npm i --save html_codesniffer`
+
+For more information, please go to the [BOSA Accessibility github page](http://github.com/openfed/AccessibilityCheck).
+
+### Bookmark 
+
+#### Installation bookmark
+The bookmark can be installed using the following steps:
+1. Open the bookmark manager in your favorite browser (Chrome, Firefox, ...)
+2. Create a new bookmark
+   - **Name**: AE PoC
+   - **Url**: javascript:(function() {var _p='//fodbosapoc20200330074148.blob.core.windows.net/hosting/';var _i=function(s,cb) {var sc=document.createElement('script');sc.onload = function() {sc.onload = null;sc.onreadystatechange = null;cb.call(this);};sc.onreadystatechange = function(){if(/^(complete|loaded)$/.test(this.readyState) === true){sc.onreadystatechange = null;sc.onload();}};sc.src=s;if (document.head) {document.head.appendChild(sc);} else {document.getElementsByTagName('head')[0].appendChild(sc);}}; var options={path:_p};_i(_p+'HTMLCS.js',function(){HTMLCSAuditor.run('WCAG2AA',null,options);});})();
+
+#### Usage bookmark
+1. Navigate to the page you want to investigate. Make sure the CSP headers of these website allow to download the sources hosted at the azure blob storage (domain: fodbosapoc20200330074148.blob.core.windows.net). 
+2. When the page is loaded, click on the AE PoC bookmark
+
+### New checks implemented in the PoC
+
+#### Alt text image
+For each image, the UI will send the URL, alt text and page language to a backend AI model. The backend model will return the most important objects recognized on the image and indicate whether the alt text was ok or not. When not, an error will be generated for that specific image. 
+
+Because this is a PoC, try to limit the number of images on a page (max 5). No performance improvements are implemented yet, so the backend model will start failing when you overload the system. 
+
+We support JPEG, PNG, BMP, GIF and SVG images.
+
+This check is an extension of the BOSA Accessibility check implementation of [WCAG 2.1 Guideline 1.1.1](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html).
+
+#### Language of the page
+For each run, the UI will check the page language once. A backend AI model will be used to check the language of the page. 
+
+This check is an extension of the BOSA Accessibility check implementation of [WCAG 2.1 Guideline 3.1.1](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html).
+
+#### Text on an image
+For each image, an AI model will calculate the text visible on the image. A frontend AI model will be used for this task. For each image, a warning will be generated showing the text and asking the user to check whether it is better to use the image or the text. 
+
+We support JPEG and PNG images.
+
+This check is an extension of the BOSA Accessibility check implementation of [WCAG 2.1 Guideline 1.4.5](https://www.w3.org/WAI/WCAG21/Understanding/images-of-text).
+
+#### Result
+As long as at least 1 check is running, the results will not yet be visualised. You will see 3 spinners. 
 
 ### Licence
 
-BOSA Accessibility Check is released under a BSD-style licence. For more information,
-please see the file "licence.txt".
+Licensed under [the BSD 3-Clause "New" or "Revised" License](https://opensource.org/licenses/BSD-3-Clause). For more information,please see the file "licence.txt".
 
 ## Using the source code
 
@@ -60,152 +96,9 @@ location.
 Then grab or copy the JavaScript from the auditor bookmarklet from the [BOSA Accessibility Check site](https://openfed.github.io/AccessibilityCheck),
 replace the directory at the start (//openfed.github.io/AccessibilityCheck/build) with your local URL, and save as a new bookmarklet.
 
-### Debug build
-
-If you are developing using BOSA Accessiblity Check and require the code not minified for
-debugging purposes, follow the above steps, but run <code>grunt build-debug</code>
-> > > > > > > (instead of just build). This will combine the files as normal, but not minify them.
-
-## Command-Line processing
-
-**Note:** These examples assume a built version of HTMLCS exported to `./build/HTMLCS.js`
-
-### PhantomJS
-
-You will need [PhantomJS](http://www.phantomjs.org/) installed if you wish to
-use the contributed command-line script. PhantomJS provides a headless Webkit-based
-browser to run the scripts in, so it should provide results that are similar to
-recent (or slightly less than recent) versions of Safari.
-
-See the `Contrib/PhantomJS/HTMLCS_Run.js` file for more information.
-
-### Headless Google Chrome via Puppeteer
-
-[Puppeteer](https://developers.google.com/web/tools/puppeteer/get-started) offers an
-easy way to interact with the page via Google Chrome.
-
-BOSA Accessibility Check requires a dom to run, however, it is possible to run it entirely
-server side without a headless browser using Node on arbitrary fragments of HTML using
-an environment wrapper like [JSDom](https://github.com/tmpvar/jsdom).
-
-```javascript
-const puppeteer = require("puppeteer-core");
-
-// Replace with the path to the chrome executable in your file system. This one assumes MacOSX.
-const executablePath =
-  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-
-// Replace with the url you wish to test.
-const url = "https://www.squiz.net";
-
-(async () => {
-  const browser = await puppeteer.launch({
-    executablePath
-  });
-
-  const page = await browser.newPage();
-
-  page.on("console", msg => {
-    console.log(msg.text());
-  });
-
-  await page.goto(url);
-
-  await page.addScriptTag({
-    path: "build/HTMLCS.js"
-  });
-
-  await page.evaluate(function() {
-    HTMLCS_RUNNER.run("WCAG2AA");
-  });
-
-  await browser.close();
-})();
-```
-
-### Node.js & JSDom
-
-HTML_CodeSniffer requires a DOM to run, however, it is possible to run it entirely
-server side without a headless browser using Node.js on arbitrary fragments of HTML using
-an environment wrapper like [JSDom](https://github.com/jsdom/jsdom).
-
-An example Node.js script:
-
-```javascript
-var jsdom = require("jsdom");
-var { JSDOM } = jsdom;
-var fs = require("fs");
-
-var HTMLCS = fs.readFileSync("./build/HTMLCS.js", "utf-8");
-var vConsole = new jsdom.VirtualConsole();
-
-// Forward messages to the console.
-vConsole.on("log", function(message) {
-  console.log(message);
-});
-
-var dom = new JSDOM('<img src="test.png" />', {
-  runScripts: "dangerously",
-  virtualConsole: vConsole
-});
-
-dom.window.eval(HTMLCS);
-dom.window.HTMLCS_RUNNER.run("WCAG2AA");
-```
-
-## Translations
-
-HTML*CodeSniffer supports \_very* basic string translations. The auditor will use the current language of the document it is being run in (e.g. `<html lang="en">`). A language code can be supplied if you need to tell HTML_CodeSniffer which language you want to use.
-
-Example usage:
-
-```javascript
-HTMLCSAuditor.run("WCAG2AA", null, {
-  lang: "pl"
-});
-```
-
-**Note:** HTML_CodeSniffer only has English (default), French, and Polish languages.
-
-If other language support is required a custom version can be built by adding more translations in `Translations/*.js` and using the grunt build process described above.
-
-## Contributing and reporting issues
-
-To report any issues with using BOSA Accessibility Check, please use the
-[BOSA Accessibility Check Issue Tracker](http://github.com/openfed/AccessibilityCheck/issues).
-
-Contributions to the BOSA Accessibility Check code base are also welcome: please create a
-fork of the main repository, then submit your modified code through a
-[Pull Request](http://help.github.com/send-pull-requests/) for review. A Pull Request
-also automatically creates an issue in the Issue Tracker, so if you have code to
-contribute, you do not need to do both.
-
 ## More Information
 
-<<<<<<< HEAD
 More information on BOSA Accessibility Check can be found on its GitHub site,
 [http://openfed.github.io/AccessibilityCheck/](http://openfed.github.io/AccessibilityCheck/). This site provides:
-=======
-More information on HTML_CodeSniffer can be found on its GitHub site,
-[http://squizlabs.github.io/HTML_CodeSniffer/](http://squizlabs.github.io/HTML_CodeSniffer/). This site provides:
-
-* Information on the tests performed (and messages emitted) by HTML_CodeSniffer's standards, organised by conformance level and Success Criterion;
-* A source test area that allows you to try out HTML_CodeSniffer with your own HTML source code; and
-* A link to the HTML_CodeSniffer bookmarklet, letting you check other pages using the pop-up auditor interface.
-
-## Translation Contributors
-
-Special thanks to:
-
-* [nsulzycki](https://github.com/nsulzycki) (Polish Translation)
-* [dmassiani](https://github.com/dmassiani) (French Translation)
-* [jamadam](https://github.com/jamadam) (Japanese Translation)
-* [tassoman](https://github.com/tassoman) (Italian Translation)
-* [bdeclerc](https://github.com/bdeclerc) (Dutch Translation)
-
-## License
-
-Licensed under [the BSD 3-Clause "New" or "Revised" License](https://opensource.org/licenses/BSD-3-Clause).
->>>>>>> 783c78fe613037fbdf86ad93b9629803fac83de9
 
 - A link to the BOSA Accessibility Check bookmarklet, letting you check other pages using the pop-up auditor interface.

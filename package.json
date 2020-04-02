@@ -10,10 +10,11 @@
   "scripts": {
     "prepack": "grunt build",
     "build": "grunt build",
+    "build-debug": "grunt build-debug",
     "test": "grunt eslint"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "files": [
     "Auditor",

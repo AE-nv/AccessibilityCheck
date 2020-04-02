@@ -57,6 +57,7 @@ _global.translation['en'] = {
     ,"1_1_1_H35.3" : 'Applet elements must contain a text alternative in the element\'s body, for browsers without support for the applet element.'
     ,"1_1_1_H35.2" : 'Applet elements must contain an alt attribute, to provide a text alternative to browsers supporting the element but are unable to load the applet.'
     ,"1_1_1_G94,G92.Applet" : 'Check that short (and if appropriate, long) text alternatives are available for non-text content that serve the same purpose and present the same information.'
+    ,"1_1_1_AltText": "The following words were not included in the alt text: {0}"
 
 
     //1_2_1.js
@@ -217,6 +218,7 @@ _global.translation['en'] = {
 
     //1_4_5.js
     ,"1_4_5_G140,C22,C30.AALevel" : 'If the technologies being used can achieve the visual presentation, check that text is used to convey information rather than images of text, except when the image of text is essential to the information being conveyed, or can be visually customised to the user\'s requirements.'
+    ,"1_4_5_text" : 'If possible, try to use the text in stead of the image: {0}'
 
 
     //1_4_6.js
@@ -443,6 +445,7 @@ _global.translation['en'] = {
     ,"3_1_1_H57.2" : 'The html element should have a lang or xml:lang attribute which describes the language of the document.'
     ,"3_1_1_H57.3.Lang" : 'The language specified in the lang attribute of the document element does not appear to be well-formed.'
     ,"3_1_1_H57.3.XmlLang" : 'The language specified in the xml:lang attribute of the document element does not appear to be well-formed.'
+    ,"3_1_1_H57.RecognizedLang" : 'The recognized language ({0}) does not match the lang attribute ({1}) of the document.'
 
 
     //3_1_2.js

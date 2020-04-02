@@ -43,6 +43,8 @@ _global.HTMLCS_WCAG2AAA_Sniffs_Principle3_Guideline3_1_3_1_1 = {
                 var lang = element.getAttribute('lang');
                 if (this.isValidLanguageTag(lang) === false) {
                     HTMLCS.addMessage(HTMLCS.ERROR, top, _global.HTMLCS.getTranslation("3_1_1_H57.3.Lang"), 'H57.3.Lang');
+                } else {
+                    HTMLCS.addAsyncMessage(this.compareLanguageToText(top, lang));
                 }
             }
 
@@ -50,10 +52,41 @@ _global.HTMLCS_WCAG2AAA_Sniffs_Principle3_Guideline3_1_3_1_1 = {
                 var lang = element.getAttribute('xml:lang');
                 if (this.isValidLanguageTag(lang) === false) {
                     HTMLCS.addMessage(HTMLCS.ERROR, top, _global.HTMLCS.getTranslation("3_1_1_H57.3.XmlLang"), 'H57.3.XmlLang');
+                } else {
+                    HTMLCS.addAsyncMessage(this.compareLanguageToText(top, lang));
                 }
             }
         }
 
+    },
+
+    compareLanguageToText: function(top, lang)
+    {
+        if(lang === undefined || lang === null) {
+            return Promise.reject(0);
+        }
+        var url = "https://fodbosapoc20200330074148.azurewebsites.net/api/LanguageAnalysis";
+        var data = { 
+            "url": window.location.href,
+            "lang": lang
+        };
+        var otherParameters = {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+            method: "POST",
+            cache: "no-cache"
+        };
+        return fetch(url, otherParameters, timeout = 60000)
+            .then(function(data) {
+                return data.json(); 
+            })
+            .then(function(results) {
+                if(results.similar) {
+                    HTMLCS.addMessage(HTMLCS.ERROR, top, _global.HTMLCS.getTranslation("3_1_1_H57.RecognizedLang").replace('{0}', results.recognized_language).replace('{1}', lang), 'H57');
+                }
+            });
     },
 
 

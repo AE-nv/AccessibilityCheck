@@ -56,6 +56,7 @@ _global.translation['cn'] = {
     ,"1_1_1_H35.3" : '对于不支持Applet元素的浏览器，Applet元素必须在元素的主体中包含一个文本替代。'
     ,"1_1_1_H35.2" : 'Applet元素必须包含alt属性，以便为支持该元素但无法加载Applet的浏览器提供文本替代。'
     ,"1_1_1_G94,G92.Applet" : '检查是否可以为具有相同目的和显示相同信息的非文本内容提供短文本(如果合适，也可以是长文本)替代方案。'
+    ,"1_1_1_AltText": "The following words were not included in the alt text: {0} (Chinese)"
 
     //1_2_1.js
     ,"1_2_1_G158" : '如果此嵌入式对象仅包含预录制的音频，且不作为文本内容的替代提供，请检查是否提供了替代文本版本。'
@@ -160,6 +161,7 @@ _global.translation['cn'] = {
 
     //1_4_5.js
     ,"1_4_5_G140,C22,C30.AALevel" : '如果所使用的技术可以达到视觉呈现的效果，请检查文字是用来传达信息而不是文字的图像，除非文字的图像对所传达的信息是必不可少的，或者可以根据用户的需求进行视觉定制。'
+    ,"1_4_5_text" : 'Gebruik indien mogelijk de tekst in plaats van de afbeelding: {0} (Chinese)'
 
     //1_4_6.js
     ,"1_4_6_G18_or_G17.Abs" : '此元素绝对定位，无法确定背景颜色。确保文本与背景中所有被覆盖部分的对比度至少为{{required}}:1。'
@@ -259,6 +261,7 @@ _global.translation['cn'] = {
     ,"3_1_1_H57.2" : 'html元素应该具有描述文档语言的lang或xml:lang属性。'
     ,"3_1_1_H57.3.Lang" : '文档元素的lang属性中指定的语言似乎不是格式良好的。'
     ,"3_1_1_H57.3.XmlLang" : '文档元素的xml:lang属性中指定的语言似乎不是格式良好的。'
+    ,"3_1_1_H57.RecognizedLang" : 'De herkende taal ({0}) op deze pagina stemt niet overeen met het lang attribuut ({1}) van het document. (Chinese)'
 
     //3_1_2.js
     ,"3_1_2_H58" : '确保在适当的情况下，使用元素上的lang和/或xml:lang属性标记语言中的任何更改。'

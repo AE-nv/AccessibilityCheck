@@ -56,6 +56,7 @@ _global.translation['fr'] = {
     ,"1_1_1_H35.3" : 'Les éléments de l\'applet doivent contenir une alternative textuelle dans le corps de l\'élément, pour les navigateurs qui ne supportent pas l\'élément applet.'
     ,"1_1_1_H35.2" : 'Les éléments de l\'applet doivent contenir un attribut alt, afin de fournir une alternative textuelle aux navigateurs supportant l\'élément mais incapables de charger l\'applet.'
     ,"1_1_1_G94,G92.Applet" : 'Vérifiez que des textes courts (et, le cas échéant, les longs) sont disponibles pour les contenus non textuels qui servent le même but et présentent la même information.'
+    ,"1_1_1_AltText": "The following words were not included in the alt text: {0} (French)"
 
 
     //1_2_1.js
@@ -212,6 +213,7 @@ _global.translation['fr'] = {
 
     //1_4_5.js
     ,"1_4_5_G140,C22,C30.AALevel" : 'Si les technologies utilisées permettent d\'obtenir une présentation visuelle, vérifiez que le texte est utilisé pour transmettre des informations plutôt que des images de texte, sauf lorsque l\'image du texte est essentielle à l\'information véhiculée, ou peut être visuellement adaptée aux besoins de l\'utilisateur.'
+    ,"1_4_5_text" : 'Gebruik indien mogelijk de tekst in plaats van de afbeelding: {0} (French)'
 
 
     //1_4_6.js
@@ -440,6 +442,7 @@ _global.translation['fr'] = {
     ,"3_1_1_H57.2" : 'L\'élément html doit avoir un attribut lang ou xml:lang qui décrit la langue du document.'
     ,"3_1_1_H57.3.Lang" : 'La langue spécifiée dans l\'attribut lang de l\'élément de document ne semble pas être bien formée.'
     ,"3_1_1_H57.3.XmlLang" : 'La langue spécifiée dans l\'attribut xml:lang de l\'élément document ne semble pas être bien formée.'
+    ,"3_1_1_H57.RecognizedLang" : 'De herkende taal ({0}) op deze pagina stemt niet overeen met het lang attribuut ({1}) van het document. (French)'
 
 
     //3_1_2.js

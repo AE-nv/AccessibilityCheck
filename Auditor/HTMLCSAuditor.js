@@ -166,7 +166,7 @@ _global.HTMLCSAuditor = new function()
     var buildHeaderSection = function(standard, wrapper) {
         var header       = _doc.createElement('div');
         header.className = _prefix + 'header';
-        header.innerHTML = 'BOSA Accessibility Check';
+        header.innerHTML = 'BOSA Accessibility Check - POC AE';
         header.setAttribute('title', _global.HTMLCS.getTranslation("auditor_using_standard") + standard);
 
         var dragging = false;

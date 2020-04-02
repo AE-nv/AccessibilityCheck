@@ -56,6 +56,7 @@ _global.translation['pl'] = {
     ,"1_1_1_H35.3" : '<applet> powinien zawierać opis alternatywny wewnątrz znaczników <object>. Zapewni to alternatywę w przeglądarkach, które nie obsługują elementu <applet>.'
     ,"1_1_1_H35.2" : 'Applet powinien mieć opis alternatywny w atrybucie alt, aby zapewnić wsparcie w przypadku problemów z załadowaniem zawartości.'
     ,"1_1_1_G94,G92.Applet" : 'Należy sprawdzić czy krótkie lub długie teksty alternatywne są dostępne dla wszystkich elementów nietekstowych i możliwie najdokładniej je opisują.'
+    ,"1_1_1_AltText": "The following words were not included in the alt text: {0} (Polish)"
 
 
     //1_2_1.js
@@ -190,6 +191,7 @@ _global.translation['pl'] = {
 
     //1_4_5.js
     ,"1_4_5_G140,C22,C30.AALevel" : 'Sprawdź czy stosowane technologie pozwalają na użycie tekstu w graficznej formie. Treść powinna być przekazana w formie tekstu, chyba że graficzna forma tekstu jest istotna z punktu widzenia samej informacji, która jest przekazywana.'
+    ,"1_4_5_text" : 'Gebruik indien mogelijk de tekst in plaats van de afbeelding: {0} (Polish)'
 
 
     //1_4_6.js
@@ -314,6 +316,7 @@ _global.translation['pl'] = {
     ,"3_1_1_H57.2" : 'Znacznik <html> musi posiadać atrybut "lang" określający język strony.'
     ,"3_1_1_H57.3.Lang" : 'Język zdefiniowany w atrybucie "lang" nie mógł zostać poprawnie zinterpretowany.'
     ,"3_1_1_H57.3.XmlLang" : 'Język zdefiniowany w atrybucie "xml:lang" nie mógł zostać poprawnie zinterpretowany. '
+    ,"3_1_1_H57.RecognizedLang" : 'De herkende taal ({0}) op deze pagina stemt niet overeen met het lang attribuut ({1}) van het document. (Polish)'
 
 
     //3_1_2.js

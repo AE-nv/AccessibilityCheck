@@ -56,6 +56,7 @@ _global.translation['ja'] = {
     ,"1_1_1_H35.3" : 'applet 要素をサポートしていないブラウザでは、 applet 要素の要素本文に代替テキストを含める必要があります。'
     ,"1_1_1_H35.2" : 'applet 要素をサポートしているがロードできないブラウザに対して代替テキストを提供するために、 applet 要素は alt 属性を含まなければなりません。'
     ,"1_1_1_G94,G92.Applet" : '非テキストコンテンツに対して、同じ目的を果たし、かつ同じ情報を示す短い（適切な場合は長い）代替テキストが提供されていることを確認してください。'
+    ,"1_1_1_AltText": "The following words were not included in the alt text: {0} (Japanese)"
 
 
     //1_2_1.js
@@ -190,6 +191,7 @@ _global.translation['ja'] = {
 
     //1_4_5.js
     ,"1_4_5_G140,C22,C30.AALevel" : '使用している技術で意図した視覚的提示が可能である場合、文字画像ではなくテキストが情報伝達に用いられているか確認してください。ただし、文字画像が、伝えようとする情報にとって必要不可欠であるか、または、利用者の要求に応じて視覚的にカスタマイズできる場合を除きます。'
+    ,"1_4_5_text" : 'Gebruik indien mogelijk de tekst in plaats van de afbeelding: {0} (Japanese)'
 
 
     //1_4_6.js
@@ -314,6 +316,7 @@ _global.translation['ja'] = {
     ,"3_1_1_H57.2" : 'html 要素には、ドキュメントの言語を記述する lang 属性または xml:lang 属性を含める必要があります。'
     ,"3_1_1_H57.3.Lang" : 'document 要素の lang 属性に指定されている言語が整形式ではないようです。'
     ,"3_1_1_H57.3.XmlLang" : 'document 要素の xml:lang 属性に指定されている言語が整形式ではないようです。'
+    ,"3_1_1_H57.RecognizedLang" : 'De herkende taal ({0}) op deze pagina stemt niet overeen met het lang attribuut ({1}) van het document. (Japanese)'
 
 
     //3_1_2.js

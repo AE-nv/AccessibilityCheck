@@ -40,6 +40,7 @@ _global.HTMLCS_WCAG2AAA_Sniffs_Principle1_Guideline1_1_1_1_1 = {
         if (element === top) {
             this.addNullAltTextResults(top);
             this.addMediaAlternativesResults(top);
+            this.addMistmatchAltTextResults(top);
         } else {
             var nodeName = element.nodeName.toLowerCase();
 
@@ -50,6 +51,82 @@ _global.HTMLCS_WCAG2AAA_Sniffs_Principle1_Guideline1_1_1_1_1 = {
                 break;
             }//end if
         }//end if
+    },
+
+    addMistmatchAltTextResults: function(top)
+    {
+        elements = HTMLCS.util.getAllElements(top, 'img, area, input[type="image"]');
+        var numberOfProcessedImages = 0;
+
+        for (var el = 0; el < elements.length; el++) {
+            var element = elements[el];
+
+            var nodeName      = element.nodeName.toLowerCase();
+            var missingAlt    = false;
+            var nullAlt       = false;
+
+            if (element.hasAttribute('alt') === false) {
+                missingAlt = true;
+            } else if (!element.getAttribute('alt') || HTMLCS.util.isStringEmpty(element.getAttribute('alt')) === true) {
+                nullAlt = true;
+            }
+
+            // Now determine which test(s) should fire.
+            switch (nodeName) {
+            case 'img':
+                if(numberOfProcessedImages >= 4) {
+                    break;
+                }
+                if(nullAlt || missingAlt) {
+                    break;
+                }
+                var srcName = element.src ? element.src.toLowerCase() : "";
+                var isJpeg = /\.jpg$/i.test(srcName) || /\.jpeg$/i.test(srcName);
+                var isPng = /\.png$/i.test(srcName);
+                var isSvg = /\.png$/i.test(srcName);
+                var isBmp = /\.bmp$/i.test(srcName);
+                var isGif = /\.gif$/i.test(srcName);
+                if(isJpeg || isPng || isSvg || isBmp || isGif) {
+                    HTMLCS.addAsyncMessage(this.checkAltText(element));
+                    numberOfProcessedImages++;
+                }
+                break;
+            default:
+                // No other tags defined.
+                break;
+            }//end switch
+        }//end for
+    },
+
+    checkAltText: function(element)
+    {
+        var url = "https://fodbosapoc20200330074148.azurewebsites.net/api/ImageAnalysis";
+        var data = { 
+            "url": element.src,
+            "alt": element.getAttribute('alt'),
+            "lang": HTMLCS.lang
+        };
+        var otherParameters = {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+            method: "POST",
+            cache: "no-cache"
+        };
+        return fetch(url, otherParameters, timeout = 60000)
+            .then(function(data) {
+                return data.json(); 
+            })
+            .then(function(results) { 
+                var invalidNames = results.objects
+                    .filter(function(result) { return !result.recognized; })
+                    .map(function(result) { return result.name; });
+                
+                if(invalidNames.length > 0) {
+                    HTMLCS.addMessage(results.results, element, _global.HTMLCS.getTranslation("1_1_1_AltText").replace('{0}', invalidNames.join()), 'G94.Image');
+                }
+            });
     },
 
     /**
@@ -121,7 +198,7 @@ _global.HTMLCS_WCAG2AAA_Sniffs_Principle1_Guideline1_1_1_1_1 = {
                 missingAlt: [],
                 ignored: [],
                 nullAltWithTitle: [],
-                emptyAltInLink: []
+                emptyAltInLink: [],
             },
             inputImage: {
                 generalAlt: [],
@@ -130,7 +207,8 @@ _global.HTMLCS_WCAG2AAA_Sniffs_Principle1_Guideline1_1_1_1_1 = {
             area: {
                 generalAlt: [],
                 missingAlt: []
-            }
+            },
+            promises: [],
         };
 
         elements = HTMLCS.util.getAllElements(top, 'img, area, input[type="image"]');
