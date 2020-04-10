@@ -16,7 +16,10 @@ module.exports = function (grunt) {
                     footer: grunt.file.read('Contrib/Build/umd-footer.js')
                 },
                 files: {
-                    'build/HTMLCS.js': ['Contrib/Tesseract/tesseract.min.js', 'Translations/*.js', 'Standards/**/*.js', 'HTMLCS.js', 'HTMLCS.Util.js', 'Contrib/PhantomJS/runner.js', 'Auditor/HTMLCSAuditor.js']
+                    'build/HTMLCS.js': ['Contrib/polyfills/index.js', 'Contrib/html2canvas/html2canvas.min.js', 'Contrib/Tesseract/tesseract.min.js', 'Translations/*.js', 'Standards/**/*.js', 'HTMLCS.js', 'HTMLCS.Util.js', 'Contrib/PhantomJS/runner.js', 'Auditor/HTMLCSAuditor.js'],
+                    'build/polyfills.js': ['Contrib/polyfills/promise.min.js', 'Contrib/polyfills/fetch.min.js'],
+                    'build/promise.js': ['Contrib/polyfills/promise.min.js'],
+                    'build/fetch.js': ['Contrib/polyfills/fetch.min.js']
                 }
             },
             dist: {
@@ -25,7 +28,10 @@ module.exports = function (grunt) {
                     footer: grunt.file.read('Contrib/Build/umd-footer.js')
                 },
                 files: {
-                    'build/HTMLCS.js': ['Contrib/Tesseract/tesseract.min.js', 'Translations/*.js', 'Standards/**/*.js', 'HTMLCS.js', 'HTMLCS.Util.js', 'Contrib/PhantomJS/runner.js', 'Auditor/HTMLCSAuditor.js']
+                    'build/HTMLCS.js': ['Contrib/polyfills/index.js', 'Contrib/html2canvas/html2canvas.min.js', 'Contrib/Tesseract/tesseract.min.js', 'Translations/*.js', 'Standards/**/*.js', 'HTMLCS.js', 'HTMLCS.Util.js', 'Contrib/PhantomJS/runner.js', 'Auditor/HTMLCSAuditor.js'],
+                    'build/polyfills.js': ['Contrib/polyfills/promise.min.js', 'Contrib/polyfills/fetch.min.js'],
+                    'build/promise.js': ['Contrib/polyfills/promise.min.js'],
+                    'build/fetch.js': ['Contrib/polyfills/fetch.min.js']
                 }
             },
             bookmarklet: {
@@ -34,7 +40,10 @@ module.exports = function (grunt) {
                     footer: grunt.file.read('Contrib/Build/umd-footer.js')
                 },
                 files: {
-                    'build/HTMLCS.js': ['Contrib/Tesseract/tesseract.min.js', 'Translations/*.js', 'Standards/**/*.js', 'HTMLCS.js', 'HTMLCS.Util.js', 'Contrib/PhantomJS/runner.js', 'Auditor/Auditor_with_beacon.js']
+                    'build/HTMLCS.js': ['Contrib/polyfills/index.js', 'Contrib/html2canvas/html2canvas.min.js', 'Contrib/Tesseract/tesseract.min.js', 'Translations/*.js', 'Standards/**/*.js', 'HTMLCS.js', 'HTMLCS.Util.js', 'Contrib/PhantomJS/runner.js', 'Auditor/Auditor_with_beacon.js'],
+                    'build/polyfills.js': ['Contrib/polyfills/promise.min.js', 'Contrib/polyfills/fetch.min.js'],
+                    'build/promise.js': ['Contrib/polyfills/promise.min.js'],
+                    'build/fetch.js': ['Contrib/polyfills/fetch.min.js']
                 }
             }
         },

@@ -11,6 +11,22 @@
  *
  */
 
+function browserSupportsAllFeatures() {
+    return window.Promise && window.fetch;
+}
+
+function loadScript(src, done) {
+    var js = document.createElement('script');
+    js.src = src;
+    js.onload = function() {
+        done();
+    };
+    js.onerror = function() {
+        done(new Error('Failed to load script ' + src));
+    };
+    document.head.appendChild(js);
+}
+
 _global.HTMLCSAuditor = new function()
 {
     WebFontConfig = {
@@ -1653,6 +1669,33 @@ _global.HTMLCSAuditor = new function()
         // Save the top window.
         _top = window;
 
+        var self = this;
+        if(browserSupportsAllFeatures()) {
+            self.newRun(standard, source, options);
+        } else {
+            this.loadPromise(standard, source, options);
+        }
+    };
+
+    this.loadPromise = function(standard, source, options) {
+        var self = this;
+        loadScript(options.path + 'promise.js', function() {
+            self.loadFetch(standard, source, options);
+        });
+    };
+
+    this.loadFetch = function(standard, source, options) {
+        var self = this;
+        if(browserSupportsAllFeatures()) {
+            self.newRun(standard, source, options);
+        } else {
+            loadScript(options.path + 'fetch.js', function() {
+                self.newRun(standard, source, options);
+            });
+        }
+    };
+
+    this.newRun = function(standard, source, options) {
         var standards       = this.getStandardList();
         var standardsToLoad = [];
         for (var i = 0; i < standards.length; i++) {
@@ -1840,7 +1883,7 @@ _global.HTMLCSAuditor = new function()
         };
 
         _processSource(standard, _sources.concat([]));
-    };
+    }
 
     this.versionCheck = function(response) {
         if (response && (response.currentVersion !== null)) {
