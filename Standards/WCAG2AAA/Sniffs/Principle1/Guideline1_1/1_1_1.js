@@ -74,7 +74,7 @@ _global.HTMLCS_WCAG2AAA_Sniffs_Principle1_Guideline1_1_1_1_1 = {
             // Now determine which test(s) should fire.
             switch (nodeName) {
             case 'img':
-                if(numberOfProcessedImages >= 4) {
+                if(numberOfProcessedImages >= 8) {
                     break;
                 }
                 if(nullAlt || missingAlt) {

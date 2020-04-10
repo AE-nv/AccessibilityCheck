@@ -83,7 +83,7 @@ _global.HTMLCS_WCAG2AAA_Sniffs_Principle3_Guideline3_1_3_1_1 = {
                 return data.json(); 
             })
             .then(function(results) {
-                if(results.similar) {
+                if(results.results) {
                     HTMLCS.addMessage(HTMLCS.ERROR, top, _global.HTMLCS.getTranslation("3_1_1_H57.RecognizedLang").replace('{0}', results.recognized_language).replace('{1}', lang), 'H57');
                 }
             });
